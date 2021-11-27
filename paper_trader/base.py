@@ -1,7 +1,7 @@
 """
-paper_trading base module.
+paper_trader base module.
 
-This is the principal module of the paper_trading project.
+This is the principal module of the paper_trader project.
 here you put your main classes and objects.
 
 Be creative! do whatever you want!

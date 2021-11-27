@@ -6,7 +6,7 @@ from . import BaseClass, base_function  # pragma: no cover
 def main() -> None:  # pragma: no cover
     """
     The main function executes on commands:
-    `python -m paper_trading` and `$ paper_trading `.
+    `python -m paper_trader` and `$ paper_trader `.
 
     This is your program's entry point.
 
@@ -20,8 +20,8 @@ def main() -> None:  # pragma: no cover
         * Run an application (Flask, FastAPI, Django, etc.)
     """
     parser = argparse.ArgumentParser(
-        description="paper_trading.",
-        epilog="Enjoy the paper_trading functionality!",
+        description="paper_trader.",
+        epilog="Enjoy the paper_trader functionality!",
     )
     # This is required positional argument
     parser.add_argument(

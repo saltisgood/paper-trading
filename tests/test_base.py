@@ -1,6 +1,6 @@
 import pytest
 
-from paper_trading import BaseClass, base_function
+from paper_trader import BaseClass, base_function
 
 given = pytest.mark.parametrize
 

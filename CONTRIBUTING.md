@@ -1,6 +1,6 @@
 # How to develop on this project
 
-paper_trading welcomes contributions from the community.
+paper_trader welcomes contributions from the community.
 
 **You need PYTHON3!**
 
