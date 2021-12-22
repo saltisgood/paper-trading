@@ -1,12 +1,14 @@
 from dataclasses import dataclass
 from datetime import date
 from decimal import Decimal
+from typing import List
 
 from ..db.decorator import primary_key
 from ..utils import Price
 
+
 @dataclass
-@primary_key('symbol')
+@primary_key("symbol")
 class SymbolInfo:
     symbol: str
     name: str
@@ -14,8 +16,9 @@ class SymbolInfo:
     desc: str
     currency: str
 
+
 @dataclass
-@primary_key('symbol', 'date')
+@primary_key("symbol", "date")
 class EndOfDay:
     symbol: str
     date: date
@@ -29,9 +32,11 @@ class EndOfDay:
     traded_volume: int
     traded_value: Price
 
+
 @dataclass
 class ClosePrice:
     date: date
     price: Price
 
-ClosePrices = list[ClosePrice]
+
+ClosePrices = List[ClosePrice]

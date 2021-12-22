@@ -1,7 +1,5 @@
 import argparse  # pragma: no cover
 
-from . import BaseClass, base_function  # pragma: no cover
-
 
 def main() -> None:  # pragma: no cover
     """
@@ -51,9 +49,6 @@ def main() -> None:  # pragma: no cover
         print("Verbose mode is on.")
 
     print("Executing main function")
-    base = BaseClass()
-    print(base.base_method())
-    print(base_function())
     print("End of main function")
 
 
