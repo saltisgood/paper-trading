@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from decimal import Decimal
 from enum import Enum, auto, unique
 
@@ -23,6 +24,12 @@ class Price:
     @value.setter
     def value(self, v: Decimal):
         self._set_value(v)
+
+    def __eq__(self, other):
+        if type(other) is not Price:
+            raise NotImplementedError()
+
+        return self._value == other._value
 
     def __repr__(self):
         return str(self.value)
@@ -53,29 +60,13 @@ class Currency(Enum):
     USD = auto()
 
 
+@dataclass
 class PriceCurrency:
-    def __init__(self, price: Price, currency: Currency):
-        self._price = price
-        self._currency = currency
-
-    @property
-    def price(self):
-        return self._price
-
-    @property
-    def currency(self):
-        return self._currency
+    price: Price
+    currency: Currency
 
 
+@dataclass
 class PriceQuantity:
-    def __init__(self, price: Price, quantity: int):
-        self._price = price
-        self._quantity = quantity
-
-    @property
-    def price(self):
-        return self._price
-
-    @property
-    def quantity(self):
-        return self._quantity
+    price: Price
+    quantity: int

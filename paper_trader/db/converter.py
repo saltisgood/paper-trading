@@ -25,5 +25,6 @@ def _convert_val_from_db(clazz, val):
 def register_converter(clazz):
     def f(func):
         _TYPE_CONVERSIONS[clazz] = func
+        return func
 
     return f
