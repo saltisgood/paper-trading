@@ -1,30 +1,41 @@
-from typing import Callable, Dict, Type
-
-_TYPE_CONVERSIONS: Dict[Type, Callable] = {}
+from typing import Any, Dict, Protocol, Type
 
 
-def _convert_val_to_db(val):
+class Converter(Protocol):
+    @staticmethod
+    def from_db(value: Any) -> Any:
+        raise NotImplementedError()
+
+    @staticmethod
+    def to_db(value: Any) -> Any:
+        raise NotImplementedError()
+
+
+_TYPE_CONVERSIONS: Dict[Type, Converter] = {}
+
+
+def _convert_val_to_db(val: Any) -> Any:
     try:
         converter = _TYPE_CONVERSIONS[type(val)]
     except KeyError:
         # No registered converter, just return as is
         return val
     else:
-        return converter(val)
+        return converter.to_db(val)
 
 
-def _convert_val_from_db(clazz, val):
+def _convert_val_from_db(clazz: Type, val: Any) -> Any:
     try:
         converter = _TYPE_CONVERSIONS[clazz]
     except KeyError:
         return val
     else:
-        return converter(db=val)
+        return converter.from_db(val)
 
 
-def register_converter(clazz):
-    def f(func):
-        _TYPE_CONVERSIONS[clazz] = func
-        return func
+def register_converter(t: Type):
+    def f(clazz):
+        _TYPE_CONVERSIONS[t] = clazz
+        return clazz
 
     return f

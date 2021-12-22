@@ -11,11 +11,14 @@ class Foo:
 
 
 @register_converter(Foo)
-def conv(f: Foo = None, db: str = None):
-    if f is not None:
-        return str(f._x)
-    assert db is not None
-    return Foo(int(db))
+class FooConverter:
+    @staticmethod
+    def from_db(value: str) -> Foo:
+        return Foo(int(value))
+
+    @staticmethod
+    def to_db(value: Foo) -> str:
+        return str(value._x)
 
 
 def test_convertor():

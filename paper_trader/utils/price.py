@@ -39,19 +39,25 @@ class Price:
 
 
 @register_converter(Decimal)
-def decimal_to_db(d=None, db=None):
-    if d is not None:
-        return str(d)
-    assert db is not None
-    return Decimal(db)
+class DecimalConverter:
+    @staticmethod
+    def from_db(value: str) -> Decimal:
+        return Decimal(value)
+
+    @staticmethod
+    def to_db(value: Decimal) -> str:
+        return str(value)
 
 
 @register_converter(Price)
-def price_to_db(p=None, db=None):
-    if p is not None:
-        return str(p.value)
-    assert db is not None
-    return Price(db)
+class PriceConverter:
+    @staticmethod
+    def from_db(value: str) -> Price:
+        return Price(Decimal(value))
+
+    @staticmethod
+    def to_db(value: Price) -> str:
+        return str(value.value)
 
 
 @unique
