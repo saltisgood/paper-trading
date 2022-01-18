@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 from datetime import date
 from decimal import Decimal
-from typing import List
 
 from ..db.decorator import primary_key
 from ..utils import Price
@@ -39,4 +38,4 @@ class ClosePrice:
     price: Price
 
 
-ClosePrices = List[ClosePrice]
+ClosePrices = list[ClosePrice]

@@ -1,5 +1,6 @@
 import sqlite3
 from dataclasses import fields, is_dataclass
+from typing import Any, Iterable
 
 from ..utils.case import camel_to_snake
 from .converter import _convert_val_from_db, _convert_val_to_db
@@ -86,10 +87,18 @@ class SqliteDb:
         cursor = self._db.cursor()
         cursor.execute(desc.create_table_str)
 
-    def upsert(self, obj):
+    def upsert(self, obj: Any):
         desc = _ClassDesc(inst=obj)
         cursor = self._db.cursor()
         cursor.execute(desc.upsert_str, desc.get_fields(obj))
+
+    def upsert_all(self, objs: Iterable):
+        desc = None
+        cursor = self._db.cursor()
+        for obj in objs:
+            if desc is None:
+                desc = _ClassDesc(inst=obj)
+            cursor.execute(desc.upsert_str, desc.get_fields(obj))
 
     def delete(self, obj):
         desc = _ClassDesc(inst=obj)

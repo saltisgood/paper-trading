@@ -1,9 +1,7 @@
-from typing import List
-
 from .orders import Order
 from .position import TotalPositions
 
-Orders = List[Order]
+Orders = list[Order]
 
 
 class Book:
@@ -19,3 +17,7 @@ class Book:
     @property
     def active_orders(self):
         return self._active_orders
+
+    @property
+    def positions(self):
+        return self._positions

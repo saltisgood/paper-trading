@@ -1,4 +1,5 @@
-from typing import Any, Dict, Protocol, Type
+from datetime import datetime
+from typing import Any, Protocol, Type
 
 
 class Converter(Protocol):
@@ -11,7 +12,7 @@ class Converter(Protocol):
         raise NotImplementedError()
 
 
-_TYPE_CONVERSIONS: Dict[Type, Converter] = {}
+_TYPE_CONVERSIONS: dict[Type, Converter] = {}
 
 
 def _convert_val_to_db(val: Any) -> Any:
@@ -28,14 +29,25 @@ def _convert_val_from_db(clazz: Type, val: Any) -> Any:
     try:
         converter = _TYPE_CONVERSIONS[clazz]
     except KeyError:
-        return val
+        return clazz(val)
     else:
         return converter.from_db(val)
 
 
 def register_converter(t: Type):
-    def f(clazz):
+    def f(clazz: Converter):
         _TYPE_CONVERSIONS[t] = clazz
         return clazz
 
     return f
+
+
+@register_converter(datetime)
+class DatetimeConverter:
+    @staticmethod
+    def from_db(value: str) -> datetime:
+        return datetime.fromisoformat(value)
+
+    @staticmethod
+    def to_db(value: datetime) -> str:
+        return value.isoformat()

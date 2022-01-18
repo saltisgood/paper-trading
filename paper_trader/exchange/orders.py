@@ -37,3 +37,7 @@ class Fill:
     price: Price
     quantity: int
     fee: Price
+
+    @property
+    def net_quantity(self):
+        return self.quantity if self.side == Side.BUY else -self.quantity
