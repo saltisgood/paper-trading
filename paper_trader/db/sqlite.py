@@ -1,42 +1,12 @@
 import sqlite3
-from dataclasses import fields, is_dataclass
 from typing import Any, Iterable
 
-from ..utils.case import camel_to_snake
+from paper_trader.utils.dataclasses import DataclassDesc
+
 from .converter import _convert_val_from_db, _convert_val_to_db
-from .decorator import _get_primary_keys
 
 
-class _ClassDesc:
-    def __init__(self, inst=None, clazz=None):
-        assert inst is not None or clazz is not None
-        if inst is not None:
-            typ = type(inst)
-        else:
-            typ = clazz
-        v = inst if inst is not None else clazz
-        assert is_dataclass(v)
-        self._name = camel_to_snake(typ.__name__)
-        self._fields = {f.name: f.type for f in fields(v)}
-        self._field_types = [f.type for f in fields(v)]
-        self._primary_keys = _get_primary_keys(v)
-
-    @property
-    def name(self):
-        return self._name
-
-    @property
-    def fields(self):
-        return self._fields
-
-    @property
-    def field_types(self):
-        return self._field_types
-
-    @property
-    def primary_keys_names(self):
-        return self._primary_keys
-
+class _ClassDesc(DataclassDesc):
     @property
     def create_table_str(self):
         cols = ", ".join(self.fields.keys())
@@ -58,9 +28,6 @@ class _ClassDesc:
     @property
     def get_all_str(self):
         return f"SELECT * FROM {self.name}"
-
-    def get_primary_keys(self, inst):
-        return [getattr(inst, pk) for pk in self.primary_keys_names]
 
     def get_fields(self, inst):
         return [_convert_val_to_db(getattr(inst, f)) for f in self.fields]

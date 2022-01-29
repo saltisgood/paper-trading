@@ -15,7 +15,7 @@ from .simulator import Simulation
 @dataclass
 class _CloseDiff:
     absolute_diff: Price
-    percent_diff: Price
+    percent_diff: Decimal
 
 
 _CloseDiffs = list[_CloseDiff]
@@ -117,8 +117,8 @@ class DowSimulator:
         self._starting_cash = starting_cash
         self._cash = starting_cash
         self._fee = Price("5.00")
-        self._start_date: datetime = None
-        self._end_date: datetime = None
+        self._start_date: datetime | None = None
+        self._end_date: datetime | None = None
         self._actions = {0: Side.BUY, 1: Side.SELL, 2: Side.BUY, 3: Side.SELL}
 
     def on_begin(self):

@@ -2,8 +2,8 @@ from dataclasses import dataclass
 from datetime import date
 from decimal import Decimal
 
-from ..db.decorator import primary_key
 from ..utils import Price
+from ..utils.dataclasses import primary_key
 
 
 @dataclass
@@ -11,9 +11,10 @@ from ..utils import Price
 class SymbolInfo:
     symbol: str
     name: str
-    issuer_name: str
-    desc: str
-    currency: str
+    issuer_name: str = ""
+    desc: str = ""
+    currency: str = ""
+    category: str = ""
 
 
 @dataclass

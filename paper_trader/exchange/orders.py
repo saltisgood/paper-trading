@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum, auto, unique
 
-from paper_trader.db.decorator import primary_key
+from paper_trader.utils.dataclasses import primary_key
 from paper_trader.utils.price import Price
 
 

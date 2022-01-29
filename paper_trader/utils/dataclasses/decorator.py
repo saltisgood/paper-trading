@@ -7,5 +7,9 @@ def primary_key(*key_names):
 
 
 def _get_primary_keys(clazz):
-    assert hasattr(clazz, "_primary_key")
+    assert _has_primary_keys(clazz)
     return clazz._primary_key
+
+
+def _has_primary_keys(clazz):
+    return hasattr(clazz, "_primary_key")

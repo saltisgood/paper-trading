@@ -1,4 +1,7 @@
-from paper_trader.db.decorator import primary_key, _get_primary_keys
+from paper_trader.utils.dataclasses.decorator import (
+    primary_key,
+    _get_primary_keys,
+)
 
 
 @primary_key("a", "b")

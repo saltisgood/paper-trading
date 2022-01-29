@@ -10,10 +10,10 @@ _QUANTIZE = Decimal("1.0000")
 
 @total_ordering
 class Price:
-    def __init__(self, value: Decimal):
+    def __init__(self, value: Decimal | str | float):
         self._set_value(value)
 
-    def _set_value(self, value: Decimal):
+    def _set_value(self, value: Decimal | str | float):
         if type(value) is not Decimal:
             value = Decimal(value)
         value = value.quantize(_QUANTIZE)

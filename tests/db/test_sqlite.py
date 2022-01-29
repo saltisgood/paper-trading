@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
-from paper_trader.db.decorator import primary_key
 from paper_trader.db.sqlite import SqliteDb
+from paper_trader.utils.dataclasses import primary_key
 
 
 @dataclass

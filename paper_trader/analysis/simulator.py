@@ -3,7 +3,7 @@ from typing import Protocol
 
 from paper_trader.exchange.book import Book
 from paper_trader.exchange.history import SymbolPriceTime, SymbolPriceTimes
-from paper_trader.exchange.orders import Fill, Order
+from paper_trader.exchange.orders import Fill
 from paper_trader.exchange.position import Position
 from paper_trader.utils.price import Price
 
@@ -38,7 +38,7 @@ class Simulation:
             self.default_book.positions.positions[fill.symbol] = pos
         pos.fills.append(fill)
 
-    def get_last_price(self, symbol: str) -> Price:
+    def get_last_price(self, symbol: str) -> Price | None:
         try:
             return self._last_prices[symbol]
         except KeyError:
