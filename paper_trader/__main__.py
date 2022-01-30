@@ -1,5 +1,7 @@
 import argparse  # pragma: no cover
 
+from paper_trader.interpreter.interpreter import BaseInterpreter
+
 
 def main() -> None:  # pragma: no cover
     """
@@ -21,22 +23,6 @@ def main() -> None:  # pragma: no cover
         description="paper_trader.",
         epilog="Enjoy the paper_trader functionality!",
     )
-    # This is required positional argument
-    parser.add_argument(
-        "name",
-        type=str,
-        help="The username",
-        default="saltisgood",
-    )
-    # This is optional named argument
-    parser.add_argument(
-        "-m",
-        "--message",
-        type=str,
-        help="The Message",
-        default="Hello",
-        required=False,
-    )
     parser.add_argument(
         "-v",
         "--verbose",
@@ -44,12 +30,10 @@ def main() -> None:  # pragma: no cover
         help="Optionally adds verbosity",
     )
     args = parser.parse_args()
-    print(f"{args.message} {args.name}!")
     if args.verbose:
         print("Verbose mode is on.")
 
-    print("Executing main function")
-    print("End of main function")
+    BaseInterpreter().cmdloop()
 
 
 if __name__ == "__main__":  # pragma: no cover
